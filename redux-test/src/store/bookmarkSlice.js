@@ -8,9 +8,15 @@ const bookmarkSlice = createSlice({
     reducers: {
         add(state,action){
             state.push(action.payload)
+        },
+        remove(state,action){
+            const bookmarkId = action.payload;
+            return state.filter(item => item.id !== bookmarkId);
+            
+            
         }
     }
 });
 
-export const {add} = bookmarkSlice.actions;
+export const {add, remove} = bookmarkSlice.actions;
 export default bookmarkSlice.reducer;
