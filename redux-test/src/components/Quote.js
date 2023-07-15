@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { add } from "../store/bookmarkSlice";
 import { getQuotes } from "../store/quoteSlice";
@@ -6,6 +6,16 @@ import { getQuotes } from "../store/quoteSlice";
 const Quote = () => {
   const dispatch = useDispatch();
   const { quotes } = useSelector((state) => state.quotes);
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      const response = await fetch("http://api.quotable.io/tags");
+      const data = await response.json();
+      setTags(data.tags);
+    };
+    fetchTags();
+  },[]);
 
   useEffect(() => {
     dispatch(getQuotes());
@@ -19,15 +29,33 @@ const Quote = () => {
     dispatch(add(payload));
   };
 
+  const fetchRandomQuote = async (tag) => {
+    const url = tag
+      ? `http://api.quotable.io/random?tag=${tag}`
+      : "http://api.quotable.io/random";
+    const response = await fetch(url);
+    const data = await response.json();
+    dispatch(getQuotes(data));
+  };
+
   return (
     <div>
       <h1>Quote</h1>
+
+      <select onChange={(e) => fetchRandomQuote(e.target.value)}>
+        <option value="">Select a tag</option>
+        {tags.map((tag) => (
+          <option key={tag} value={tag}>
+            {tag}
+          </option>
+        ))}
+      </select>
+
       {quotes.length > 0 ? (
         quotes.map((quote) => (
           <div key={quote._id}>
             <div
-              
-    className="bg-blue-500
+              className="bg-blue-500
     bg-opacity-40
   rounded-2xl
   min-h-[8rem]
@@ -58,8 +86,7 @@ const Quote = () => {
       ) : (
         <p>Loading quote...</p>
       )}
-      <button onClick={() => dispatch(getQuotes())}
-      className="mt-8">
+      <button onClick={() => dispatch(getQuotes())} className="mt-8">
         <span className="text-white bg-green-600 rounded-md px-6 py-2 hover:bg-green-300 hover:text-black hover:font-bold ">
           Next Quote
         </span>
