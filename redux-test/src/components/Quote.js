@@ -29,27 +29,20 @@ const Quote = () => {
     dispatch(add(payload));
   };
 
-  const fetchRandomQuote = async (tag) => {
-    const url = tag
-      ? `http://api.quotable.io/random?tag=${tag}`
-      : "http://api.quotable.io/random";
-    const response = await fetch(url);
-    const data = await response.json();
-    dispatch(getQuotes(data));
-  };
+  // const fetchRandomQuote = async (tag) => {
+  //   const url = tag
+  //     ? `http://api.quotable.io/random?tag=${tag}`
+  //     : "http://api.quotable.io/random";
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   dispatch(getQuotes(data));
+  // };
 
   return (
     <div>
       <h1>Quote</h1>
 
-      <select onChange={(e) => fetchRandomQuote(e.target.value)}>
-        <option value="">Select a tag</option>
-        {tags.map((tag) => (
-          <option key={tag} value={tag}>
-            {tag}
-          </option>
-        ))}
-      </select>
+     
 
       {quotes.length > 0 ? (
         quotes.map((quote) => (
