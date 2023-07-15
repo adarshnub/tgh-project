@@ -1,8 +1,11 @@
 import React from 'react'
+import Quote from './Quote';
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+        <Quote />
+    </div>
   )
 }
 
