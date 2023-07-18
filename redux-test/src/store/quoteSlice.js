@@ -15,9 +15,11 @@ const quoteSlice = createSlice({
         builder
         .addCase(getQuotes.fulfilled, (state, action) => {
             state.quotes = [action.payload];
+            console.log(state.quotes)
         });
         builder.addCase(getTags.fulfilled, (state, action) => {
             state.tags = action.payload;
+            console.log(state.tags);
           });
   }
 });
@@ -34,16 +36,18 @@ export default quoteSlice.reducer;
 export const getTags = createAsyncThunk("quotes/getTags", async () => {
     const response = await fetch("http://api.quotable.io/tags");
     const data = await response.json();
-    return data.tags;
+    console.log(data);
+    return data;
   });
 
-  export const getQuotes = createAsyncThunk("quotes/getQuotes", async (tag) => {
+  export const getQuotes = createAsyncThunk("quotes/getQuotes", async (tags) => {
     let url = "http://api.quotable.io/random";
-    if (tag) {
-      url = `http://api.quotable.io/random?tag=${tag}`;
+    if (tags) {
+      url = `http://api.quotable.io/random?tags=${tags}`;
     }
     const response = await fetch(url);
     const data = await response.json();
+    console.log(data);
     return data;
   });
 
