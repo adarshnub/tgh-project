@@ -6,9 +6,13 @@ const Bookmark = () => {
   const dispatch = useDispatch();
   const quotes = useSelector((state) => state.bookmark);
 
+  
+
   const removeFromBookmark = (id) => {
     dispatch(remove(id));
   };
+
+
 
   const cards = quotes.map((quote) => (
     <div
