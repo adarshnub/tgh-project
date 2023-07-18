@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { add } from "../store/bookmarkSlice";
 import { getQuotes, getTags } from "../store/quoteSlice";
+import loadingImg from "../assets/Infinity-0.7s-68px.gif";
 
 const Quote = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Quote = () => {
   }, []);
 
   const checkBookmark = () => {
-    if(quotes){
+    if (!quotes[0]) {
       return;
     }
     const bookmarked = bookmark.filter((item) => item.id === quotes[0]._id);
@@ -34,12 +35,12 @@ const Quote = () => {
   }, [quotes, bookmark]);
 
   const generateQuote = () => {
-    if(selectedTag){
+    if (selectedTag) {
       dispatch(getQuotes(selectedTag));
-    }else {
+    } else {
       dispatch(getQuotes());
-    } 
-  }
+    }
+  };
 
   const addToBookmark = (quote) => {
     const payload = {
@@ -57,7 +58,7 @@ const Quote = () => {
 
   return (
     <div>
-      <h1>Quote</h1>
+      <h1 className="text-2xl text-white font-bold mt-6">Quotify</h1>
 
       <div>
         {quotes.length > 0 ? (
@@ -65,11 +66,17 @@ const Quote = () => {
             <div key={quote._id}>
               <div
                 className={
-                  "bg-blue-500 bg-opacity-40 rounded-2xl min-h-[8rem] flex flex-col justify-center items-center gap-8 text-white mx-auto w-3/4 px-4 py-2 relative"
+                  "bg-blue-500 bg-opacity-40 rounded-2xl min-h-[8rem] flex flex-col justify-center items-center gap-8 text-white font-semibold mx-auto w-3/4 px-4 py-2  mt-6"
                 }
               >
-                <p>{quote.content}</p>
-                <h4 className="text-sm font-bold">~{quote.author}</h4>
+                <p>
+                  {quote.content || 
+                    <Skeleton containerClassName="flex-1" count={4} />
+                  }
+                </p>
+                <h4 className="text-sm font-bold">
+                  ~{quote.author}
+                </h4>
                 <button
                   onClick={() => {
                     addToBookmark(quote);
@@ -86,11 +93,16 @@ const Quote = () => {
             </div>
           ))
         ) : (
-          <p>Loading quote...</p>
+          <div className="mt-6 bg-blue-500 bg-opacity-40 rounded-2xl min-h-[8rem]  justify-center items-center  mx-auto w-3/4 relative">
+            <img
+              className="absolute right-[30rem] top-[2rem]"
+              src={loadingImg}
+            />
+          </div>
         )}
       </div>
 
-      <div className="">
+      <div className="mt-7">
         {tags.length > 0 && (
           <div
             className="text-md
@@ -115,10 +127,10 @@ const Quote = () => {
         )}
       </div>
 
-      <button 
-      // onClick={() => dispatch(getQuotes())}
-      onClick={generateQuote}
-       className="mt-8">
+      <button
+        onClick={generateQuote}
+        className="mt-8"
+      >
         <span className="text-white bg-green-600 rounded-md px-6 py-2 hover:bg-green-300 hover:text-black hover:font-bold ">
           Next Quote
         </span>

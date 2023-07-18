@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { remove } from "../store/bookmarkSlice";
 
@@ -6,26 +6,9 @@ const Bookmark = () => {
   const dispatch = useDispatch();
   const quotes = useSelector((state) => state.bookmark);
 
-
-
   const removeFromBookmark = (id) => {
     dispatch(remove(id));
-    // const bookmarks = quotes.map((quote) => quote._id);
-    // localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-    // console.log(localStorage.getItem("bookmarked"));
   };
-
-  // useEffect(()=> {
-  //   const bookamrks = JSON.parse(localStorage.getItem("bookmarks"));
-   
-  //   if(bookamrks){
-  //     bookamrks.forEach((id) => {
-  //       dispatch(remove(id));
-  //     })
-  //   }
-  // },[])
-
-
 
   const cards = quotes.map((quote) => (
     <div
@@ -39,8 +22,8 @@ const Bookmark = () => {
     "
     >
       <div className="flex flex-col gap-6 ">
-        <p className="text-white font-semibold">{quote.content}</p>
-        {/* <h1 className="font-bold text-black">loading quote......</h1> */}
+        <p className="text-white font-semibold ">{quote.content}</p>
+
         <h4
           className="text-sm
         font-bold"
@@ -60,8 +43,8 @@ const Bookmark = () => {
 
   return (
     <div>
-      <h1>Bookmarks</h1>
-      {cards}
+      <h1 className="text-xl font-bold text-white">Bookmarks</h1>
+      <div className=" ">{cards}</div>
     </div>
   );
 };

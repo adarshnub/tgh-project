@@ -22,10 +22,10 @@ function App() {
   );
 
   return (
-    <div className="App mx-auto min-h-screen bg-transparent px-8 md:px-20" 
-    style={{ backgroundImage: `url(${backimg})`,
-    backgroundSize:"contain",
-     }}>
+    <div
+      className="App mx-auto min-h-screen  px-8 md:px-20"
+      style={{ backgroundImage: `url(${backimg})`, backgroundSize: "contain" }}
+    >
       <RouterProvider router={router} />
     </div>
   );

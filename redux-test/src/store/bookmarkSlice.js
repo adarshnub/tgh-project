@@ -12,7 +12,7 @@ const bookmarkSlice = createSlice({
             state.push(action.payload)
             
             localStorage.setItem('bookmarked', JSON.stringify(state));
-            console.log(localStorage.getItem("bookmarked"));
+            // console.log(localStorage.getItem("bookmarked"));
         },
         remove(state,action){
             const bookmarkId = action.payload;

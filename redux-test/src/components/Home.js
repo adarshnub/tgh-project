@@ -3,9 +3,9 @@ import Quote from './Quote';
 
 const Home = () => {
   return (
-    <div>
+    <>
         <Quote />
-    </div>
+    </>
   )
 }
 
