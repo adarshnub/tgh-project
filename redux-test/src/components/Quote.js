@@ -70,9 +70,7 @@ const Quote = () => {
                 }
               >
                 <p>
-                  {quote.content || 
-                    <Skeleton containerClassName="flex-1" count={4} />
-                  }
+                  {quote.content}
                 </p>
                 <h4 className="text-sm font-bold">
                   ~{quote.author}
