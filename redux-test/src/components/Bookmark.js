@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { remove } from "../store/bookmarkSlice";
 
@@ -6,11 +6,24 @@ const Bookmark = () => {
   const dispatch = useDispatch();
   const quotes = useSelector((state) => state.bookmark);
 
-  
+
 
   const removeFromBookmark = (id) => {
     dispatch(remove(id));
+    // const bookmarks = quotes.map((quote) => quote._id);
+    // localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    // console.log(localStorage.getItem("bookmarked"));
   };
+
+  // useEffect(()=> {
+  //   const bookamrks = JSON.parse(localStorage.getItem("bookmarks"));
+   
+  //   if(bookamrks){
+  //     bookamrks.forEach((id) => {
+  //       dispatch(remove(id));
+  //     })
+  //   }
+  // },[])
 
 
 

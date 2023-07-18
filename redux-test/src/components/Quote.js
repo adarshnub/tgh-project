@@ -18,6 +18,9 @@ const Quote = () => {
   }, []);
 
   const checkBookmark = () => {
+    if(quotes){
+      return;
+    }
     const bookmarked = bookmark.filter((item) => item.id === quotes[0]._id);
     if (bookmarked.length > 0) {
       setIsBookmarked(true);

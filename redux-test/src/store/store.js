@@ -10,6 +10,6 @@ const store = configureStore({
         quotes : quoteSlice,
     },
 });
-store.dispatch(getTags());
+// store.dispatch(getTags());
 
 export default store;
